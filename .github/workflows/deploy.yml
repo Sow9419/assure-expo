@@ -19,6 +19,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           source: .
-          target: ./
+          target: /home/assurexpo/public_html/
           strip_components: 0
           rm: true
