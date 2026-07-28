@@ -14,7 +14,26 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          debug: true
           script: |
+            set -e
+            echo "=== WHOAMI ==="
+            whoami
+            echo "=== PWD ==="
+            pwd
+            echo "=== REPO CHECK ==="
+            ls -la /home/assurexpo/repositories/assure-expo/ 2>&1 || echo "REPO NOT FOUND AT /home/assurexpo/repositories/assure-expo/"
+            echo "=== SSH HOME ==="
+            ls -la /home/assurexpo/ 2>&1 || echo "HOME NOT FOUND AT /home/assurexpo/"
+            echo "=== REPO EXISTS? ==="
+            ls -la repositories/ 2>&1 || echo "NO LOCAL REPO"
             cd /home/assurexpo/repositories/assure-expo
+            echo "=== GIT REMOTE ==="
+            git remote -v
+            echo "=== GIT PULL ==="
             git pull origin main
-            /bin/cp -Rf * /home/assurexpo/public_html/
+            echo "=== COPY FILES ==="
+            /bin/cp -Rfv * /home/assurexpo/public_html/ 2>&1
+            echo "=== VERIFY ==="
+            ls -la /home/assurexpo/public_html/ 2>&1
+            echo "=== DONE ==="
