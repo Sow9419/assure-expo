@@ -10,11 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: SCP deploy
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "index.html,mail-handler.php,assets"
-          target: "/home/assurexpo/public_html/"
+      - name: SCP deploy (sans tar — shell désactivé)
+        env:
+          KEY: ${{ secrets.SSH_KEY }}
+          HOST: ${{ secrets.SSH_HOST }}
+          USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            index.html mail-handler.php \
+            "$USER@$HOST:/home/assurexpo/public_html/"
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r \
+            assets \
+            "$USER@$HOST:/home/assurexpo/public_html/"
