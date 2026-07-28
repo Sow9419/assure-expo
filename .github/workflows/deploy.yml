@@ -1,4 +1,4 @@
-name: Déploiement cPanel (SSH)
+name: Déploiement cPanel (SCP)
 
 on:
   push:
@@ -11,10 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Déploiement rsync vers cPanel
-        uses: SamKirkland/web-deploy@v1
+      - name: Déploiement SCP vers cPanel
+        uses: appleboy/scp-action@v0.1.7
         with:
-          target-server: ${{ secrets.SSH_HOST }}
-          remote-user: ${{ secrets.SSH_USER }}
-          private-ssh-key: ${{ secrets.SSH_KEY }}
-          destination-path: ./
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          source: .
+          target: ./
+          strip_components: 0
+          rm: true
