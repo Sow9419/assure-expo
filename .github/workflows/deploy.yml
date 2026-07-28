@@ -1,4 +1,4 @@
-name: Déploiement cPanel
+name: Déploiement cPanel (SSH)
 
 on:
   push:
@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Déploiement FTP vers cPanel
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+      - name: Déploiement rsync vers cPanel
+        uses: SamKirkland/web-deploy@v1
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/
+          target-server: ${{ secrets.SSH_HOST }}
+          remote-user: ${{ secrets.SSH_USER }}
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          destination-path: ~/public_html/
