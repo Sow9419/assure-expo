@@ -8,32 +8,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and deploy
-        uses: appleboy/ssh-action@v1.2.0
+      - uses: actions/checkout@v4
+
+      - name: SCP deploy
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          debug: true
-          script: |
-            set -e
-            echo "=== WHOAMI ==="
-            whoami
-            echo "=== PWD ==="
-            pwd
-            echo "=== REPO CHECK ==="
-            ls -la /home/assurexpo/repositories/assure-expo/ 2>&1 || echo "REPO NOT FOUND AT /home/assurexpo/repositories/assure-expo/"
-            echo "=== SSH HOME ==="
-            ls -la /home/assurexpo/ 2>&1 || echo "HOME NOT FOUND AT /home/assurexpo/"
-            echo "=== REPO EXISTS? ==="
-            ls -la repositories/ 2>&1 || echo "NO LOCAL REPO"
-            cd /home/assurexpo/repositories/assure-expo
-            echo "=== GIT REMOTE ==="
-            git remote -v
-            echo "=== GIT PULL ==="
-            git pull origin main
-            echo "=== COPY FILES ==="
-            /bin/cp -Rfv * /home/assurexpo/public_html/ 2>&1
-            echo "=== VERIFY ==="
-            ls -la /home/assurexpo/public_html/ 2>&1
-            echo "=== DONE ==="
+          source: "index.html,mail-handler.php,assets"
+          target: "/home/assurexpo/public_html/"
