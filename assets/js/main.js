@@ -52,7 +52,7 @@ buildMarquee();
 const imgs=['photo-hero.jpg','family-hands-roof.jpg','photo-sante.jpg','close-up-man-holding-kid-shoulders.jpg','photo-pro.jpg','parents-spending-time-with-their-little-daughter-home.jpg','medium-shot-happy-man-carrying-kid.jpg','medium-shot-smiley-kid-man.jpg','grandparent-s-day-celebration-scene-with-grandparents-grandchildren-showcasing-happy-family.jpg','cicb.jpg'];
 const gtrack=document.getElementById('galleryTrack');
 let ghtml='';
-for(let r=0;r<2;r++){ imgs.forEach(f=>{ ghtml+='<div class="gallery-item"><img src="https://assurexpo.com/wp-content/themes/assurexpo/assets/img/site/'+f+'" alt=""></div>'; }); }
+for(let r=0;r<2;r++){ imgs.forEach(f=>{ ghtml+='<div class="gallery-item"><img src="assets/img/gallery/'+f+'" alt=""></div>'; }); }
 gtrack.innerHTML=ghtml;
 
 // faq accordion (accessible : aria-expanded géré, boutons natifs)
