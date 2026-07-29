@@ -100,12 +100,3 @@ if(axTs){ axTs.value=Math.floor(Date.now()/1000); }
   window.history.replaceState({},'',url.toString());
 })();
 
-// brochure button — notification élégante (plus d'alert() natif du navigateur)
-function showToast(msg){
-  const t=document.getElementById('toast'), m=document.getElementById('toastMsg');
-  m.textContent=msg;
-  t.classList.add('show');
-  clearTimeout(showToast._tm);
-  showToast._tm=setTimeout(()=>t.classList.remove('show'),4200);
-}
-document.getElementById('brochureBtn').addEventListener('click',e=>{ e.preventDefault(); showToast('La brochure sponsoring sera disponible au téléchargement prochainement.'); });
