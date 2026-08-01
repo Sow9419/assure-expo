@@ -23,7 +23,7 @@ remplis avec de faux contenus :
 
 1. Logos partenaires (section "Institutions & partenaires") : 10
    emplacements prêts, sans faux logos. Remplacez le contenu d'un
-   `.logo-slot` par `<img src="assets/img/logos/nom.png" alt="Nom">`
+   `.logo-slot` par `<img src="assets/img/logos/nom.jpg" alt="Nom">`
    dès que vous avez les vrais fichiers.
 
 2. Bouton "Télécharger la brochure" : affiche une notification tant
